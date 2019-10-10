@@ -8,11 +8,6 @@ public class Main {
 
     public static Connection db = null;
 
-    /*public static void main(String[] args){
-        openDatabase("Database.db");
-        closeDatabase();
-    }*/
-
     private static void openDatabase(String dbFile) {
         try{
             Class.forName("org.sqlite.JDBC");
@@ -35,7 +30,7 @@ public class Main {
     }
     public static void main(String[] args){
 
-        openDatabase("Database.db");
+        openDatabase("Student.db");
 
         CRUD.listThings();
 
