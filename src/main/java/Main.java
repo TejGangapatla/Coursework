@@ -8,10 +8,10 @@ public class Main {
 
     public static Connection db = null;
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         openDatabase("Database.db");
         closeDatabase();
-    }
+    }*/
 
     private static void openDatabase(String dbFile) {
         try{
@@ -34,15 +34,10 @@ public class Main {
         }
     }
     public static void main(String[] args){
+
         openDatabase("Database.db");
-        try{
-            PreparedStatement ps;
-            ps = db.prepareStatement("SELECT UserID, Username, DOB FROM Users");
-            ResultSet results = ps.executeQuery();
-            while(results.next()){
-                
-            }
-        }
+
+        CRUD.listThings();
 
         closeDatabase();
     }
