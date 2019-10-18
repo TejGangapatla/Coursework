@@ -1,20 +1,20 @@
 package Controllers;
 
 import Server.Main;
+import com.sun.jersey.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
 @Path("Student/")
 public class Student {
 
-        @GET
+        /*@GET
         @Path("list")
         @Produces(MediaType.APPLICATION_JSON)
         public String listThings () {
@@ -41,26 +41,36 @@ public class Student {
                 System.out.println("Database error: " + exception.getMessage());
                 return "{\"error\": \"Unable to list items, please see server console for more info.\"}";
             }
+        }*/
+
+
+
+
+        @POST
+        @Path("delete")
+        @Consumes(MediaType.MULTIPART_FORM_DATA)
+        @Produces(MediaType.APPLICATION_JSON)
+        public String deleteThing(@FormDataParam("UserID") Integer UserID) {
+
+            try {
+                if (UserID == null) {
+                    throw new Exception("One or more form data parameters are missing in the HTTP request.");
+                }
+                System.out.println("Student/delete UserID=" + UserID);
+
+                PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Student WHERE UserID = ?");
+
+                ps.setInt(1, UserID);
+
+                ps.execute();
+                return "{\"status\": \"OK\"}";
+
+            } catch (Exception exception) {
+                System.out.println("Database error: " + exception.getMessage());
+                return "{\"error\": \"Unable to delete item, please see server console for more info.\"}";
+            }
         }
-    }
-
-
-
-
-    /*static void deleteThing(int UserID) {
-
-        try {
-
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Student WHERE UserID = ?");
-
-            ps.setInt(1, UserID);
-
-            ps.execute();
-
-        } catch (Exception exception) {
-            System.out.println("Database error: " + exception.getMessage());
-        }
-    }*/
+}
 
 
 
