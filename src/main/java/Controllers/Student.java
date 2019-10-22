@@ -1,7 +1,8 @@
 package Controllers;
 
 import Server.Main;
-import com.sun.jersey.multipart.FormDataParam;
+
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -14,7 +15,7 @@ import java.sql.ResultSet;
 @Path("Student/")
 public class Student {
 
-        /*@GET
+        @GET
         @Path("list")
         @Produces(MediaType.APPLICATION_JSON)
         public String listThings () {
@@ -41,7 +42,7 @@ public class Student {
                 System.out.println("Database error: " + exception.getMessage());
                 return "{\"error\": \"Unable to list items, please see server console for more info.\"}";
             }
-        }*/
+        }
 
 
 
@@ -70,6 +71,42 @@ public class Student {
                 return "{\"error\": \"Unable to delete item, please see server console for more info.\"}";
             }
         }
+
+
+
+        @POST
+        @Path("new")
+        @Consumes(MediaType.MULTIPART_FORM_DATA)
+        @Produces(MediaType.APPLICATION_JSON)
+        public String insertThing(@FormDataParam("UserID") Integer UserID, @FormDataParam("Name") String Name, @FormDataParam("Age") Integer Age, @FormDataParam("Email") String Email) {
+
+
+            try {
+                if (UserID == null || Name == null || Age == null || Email == null) {
+                    throw new Exception("One or more form data parameters are missing in the HTTP request.");
+                }
+                System.out.println("Student/new UserID=" + UserID);
+
+
+                PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Student(UserID, Name, Age, Email) VALUES (?, ?, ?, ?)");
+
+                ps.setInt(1, UserID);
+                ps.setString(2, Name);
+                ps.setInt(3, Age);
+                ps.setString(4, Email);
+                ps.execute();
+                return "{\"status\": \"OK\"}";
+
+
+            } catch (Exception exception) {
+                System.out.println("Database error: " + exception.getMessage());
+                return "{\"error\": \"Unable to create new item, please see server console for more info.\"}";
+            }
+        }
+
+
+
+
 }
 
 

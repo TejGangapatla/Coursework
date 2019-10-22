@@ -36,6 +36,7 @@ public class Main {
         }
     }
 
+
     public static void main(String[] args) {
 
         openDatabase("Database.db");
@@ -57,6 +58,23 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+
+
+    /*
+    public static void main(String[] args){
+
+
+        openDatabase("Database.db");
+
+        Student.insertThing(3, "Yuyu", 17, "Tsue@gmail.com");
+
+        closeDatabase();
+    }
+
+     */
+
+
 }
 
 
