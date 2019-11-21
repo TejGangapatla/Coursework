@@ -1,16 +1,21 @@
 package Controllers;
 
 import Server.Main;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
-// @Path("Student/")
+@Path("Student/")
 
 public class Student {
 
-
+/*
     public static void insertThing(int UserID, String Name, int Age, String Email) {
 
         try {
@@ -92,9 +97,10 @@ public class Student {
             System.out.println("Database error: " + exception.getMessage());
         }
     }
+    */
 
 
-/*
+
        @POST
        @Path("new")
        @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -210,7 +216,7 @@ public class Student {
 
 
 
-*/
+
 
 
 
