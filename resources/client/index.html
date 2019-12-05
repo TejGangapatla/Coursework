@@ -1,17 +1,55 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Quiz </title>
-    <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
-    <script src="/client/js/index.js"></script>
-</head>
+    <head>
+        <title>Quiz </title>
+        <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
+        <script src="/client/js/index.js"></script>
+    </head>
 
-<body onload="pageLoad()">
-<div id="content">
-    <div id="listDiv"></div>
-</div>
-</body>
+    <body onload="pageLoad()">
+        <div id="content">
+
+            <div id="pageHeader">
+                <div class="floatRight"><button id="newButton" class="editButton">Edit Student</button></div>
+                <h1>All the CRUD ops demoed with Fruit!</h1>
+            </div>
+
+            <div id="listDiv"></div>
+
+
+
+            <div id="editDiv">
+                <h2 id="editHeading"></h2>
+                <form id="StudentForm">
+                    <input type="hidden" name="UserID" id="StudentUserID">
+                    <div>
+                        <label for="StudentName" class="label">Name:</label>
+                        <input type="text" name="name" id="StudentName">
+                    </div>
+                    <div>
+                        <label for="StudentAge" class="label">Age:</label>
+                        <input type="text" name="image" id="StudentAge">
+                    </div>
+                    <div>
+                        <label for="StudentEmail" class="label">Email:</label>
+                        <input type="text" name="colour" id="StudentEmail">
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Save" UserID="saveButton">
+                        <input type="submit" value="Cancel" UserID="cancelButton">
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+
+
+
+
+    </body>
 
 </html>
 
