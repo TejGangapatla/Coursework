@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: red;
     margin: 0;
     font-family: 'Arial', serif;
 }
@@ -16,3 +16,33 @@ h1 {
     padding: 32px;
 }
 
+table {
+    width: 100%;
+}
+
+form div {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+tr {
+    text-align: center;
+}
+
+td {
+    text-align: left;
+}
+
+th {
+    text-align: left;
+}
+
+td.last {
+    text-align: left;
+}
+
+th.last {
+    text-align: left;
+
+}

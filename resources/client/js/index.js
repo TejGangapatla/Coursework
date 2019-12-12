@@ -2,7 +2,7 @@ function pageLoad() {
 
     let StudentHTML = `<table>` +
         '<tr>' +
-        '<th>UserID</th>' +
+        '<th>ID</th>' +
         '<th>Name</th>' +
         '<th>Age</th>' +
         '<th>Email</th>' +
@@ -16,12 +16,12 @@ function pageLoad() {
         for (let Student of Students){
 
             StudentHTML += `<tr>` +
-                `<td>${Student.UserID}</td>` +
-                `<td>${Student.Name}</td>` +
-                `<td>${Student.Age}</td>` +
-                `<td>${Student.Email}</td>` +
+                `<td>${Student.id}</td>` +
+                `<td>${Student.name}</td>` +
+                `<td>${Student.age}</td>` +
+                `<td>${Student.email}</td>` +
                 `<td class="last">` +
-                `<button class='editButton' data-UserID='${Student.UserID}'>Edit</button>` +
+                `<button class='editButton' data-id='${Student.id}'>Edit</button>` +
                 `</td>` +
                 `</tr>`;
 
@@ -45,9 +45,9 @@ function pageLoad() {
 
 function editUser(event) {
 
-    const UserID = event.target.getAttribute("data-UserID");
+    const id = event.target.getAttribute("data-id");
 
-    fetch('/Student/list/' + UserID, {method: 'get'}
+    fetch('/Student/get/' + id, {method: 'get'}
     ).then(response => response.json()
     ).then(Student => {
 
@@ -55,12 +55,12 @@ function editUser(event) {
             alert(Student.error);
         } else {
 
-            document.getElementById("editHeading").innerHTML = 'Editing ' + Student.Name + ':';
+            document.getElementById("editHeading").innerHTML = 'Editing ' + Student.name + ':';
 
-            document.getElementById("StudentUserID").value = UserID;
-            document.getElementById("StudentName").value = Student.Name;
-            document.getElementById("StudentAge").value = Student.Age;
-            document.getElementById("StudentEmail").value = Student.Email;
+            document.getElementById("Studentid").value = id;
+            document.getElementById("Studentname").value = Student.name;
+            document.getElementById("Studentage").value = Student.age;
+            document.getElementById("Studentemail").value = Student.email;
 
 
             document.getElementById("listDiv").style.display = 'none';
@@ -77,29 +77,29 @@ function saveEditUser(event) {
 
     event.preventDefault();
 
-    if (document.getElementById("StudentName").value.trim() === '') {
+    if (document.getElementById("Studentname").value.trim() === '') {
         alert("Please provide a Student Name.");
         return;
     }
 
-    if (document.getElementById("StudentAge").value.trim() === '') {
+    if (document.getElementById("Studentage").value.trim() === '') {
         alert("Please provide a Student Age.");
         return;
     }
 
-    if (document.getElementById("StudentEmail").value.trim() === '') {
+    if (document.getElementById("Studentemail").value.trim() === '') {
         alert("Please provide a Student Email.");
         return;
     }
 
 
 
-    const UserID = document.getElementById("StudentUserID").value;
+    const id = document.getElementById("Studentid").value;
     const form = document.getElementById("StudentForm");
     const formData = new FormData(form);
 
     let apiPath = '';
-    if (UserID === '') {
+    if (id === '') {
         apiPath = '/Student/new';
     } else {
         apiPath = '/Student/update';
