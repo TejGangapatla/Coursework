@@ -50,7 +50,12 @@ public class Student {
     public String insertThing(@FormDataParam("id") Integer id,
                              @FormDataParam("name") String name,
                              @FormDataParam("age") Integer age,
-                             @FormDataParam("email") String email) {
+                             @FormDataParam("email") String email,
+                              @CookieParam("token") String token) {
+
+        if (!Login.validToken(token)) {
+            return "{\"error\": \"You don't appear to be logged in.\"}";
+        }
 
 
        try {
@@ -122,7 +127,7 @@ public class Student {
            PreparedStatement ps = Main.db.prepareStatement("UPDATE Student SET name = ?, age = ? , email = ?   WHERE id = ?");
            ps.setString(1, name);
            ps.setInt(2, age);
-           ps.setString(2,email);
+           ps.setString(3,email);
            ps.setInt(4, id);
            ps.execute();
            return "{\"status\": \"OK\"}";

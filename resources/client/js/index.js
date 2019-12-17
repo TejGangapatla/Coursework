@@ -36,6 +36,8 @@ function pageLoad() {
             button.addEventListener("click", editUser);
         }
 
+        checkLogin();
+
     });
 
     document.getElementById("saveButton").addEventListener("click", saveEditUser);
@@ -98,19 +100,16 @@ function saveEditUser(event) {
     const form = document.getElementById("StudentForm");
     const formData = new FormData(form);
 
-    let apiPath = '';
-    if (id === '') {
-        apiPath = '/Student/new';
-    } else {
-        apiPath = '/Student/update';
-    }
 
-    fetch(apiPath, {method: 'post', body: formData}
+
+
+
+    fetch('/Student/update', {method: 'post', body: formData}
     ).then(response => response.json()
-    ).then(responseData => {
+    ).then(Student => {
 
-        if (responseData.hasOwnProperty('error')) {
-            alert(responseData.error);
+        if (Student.hasOwnProperty('error')) {
+            alert(Student.error);
         } else {
             document.getElementById("listDiv").style.display = 'block';
             document.getElementById("editDiv").style.display = 'none';
@@ -128,6 +127,49 @@ function cancelEditUser(event) {
     document.getElementById("editDiv").style.display = 'none';
 
 }
+
+function checkLogin() {
+
+    let id = Cookies.get("id");
+
+    let logInHTML = '';
+
+    if (id === undefined) {
+
+        let editButtons = document.getElementsByClassName("editButton");
+        for (let button of editButtons) {
+            button.style.visibility = "hidden";
+        }
+
+        let deleteButtons = document.getElementsByClassName("deleteButton");
+        for (let button of deleteButtons) {
+            button.style.visibility = "hidden";
+        }
+
+        logInHTML = "Not logged in. <a href='/client/login.html'>Log in</a>";
+    } else {
+
+        let editButtons = document.getElementsByClassName("editButton");
+        for (let button of editButtons) {
+            button.style.visibility = "visible";
+        }
+
+        let deleteButtons = document.getElementsByClassName("deleteButton");
+        for (let button of deleteButtons) {
+            button.style.visibility = "visible";
+        }
+
+        logInHTML = "Logged in as " + id + ". <a href='/client/login.html?logout'>Log out</a>";
+
+    }
+
+    document.getElementById("loggedInDetails").innerHTML = logInHTML;
+
+}
+
+
+
+
 
 
 

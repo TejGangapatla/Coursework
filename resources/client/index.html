@@ -4,6 +4,7 @@
     <head>
         <title>Quiz </title>
         <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
+        <script src="/client/js/js.cookie.js"></script>
         <script src="/client/js/index.js"></script>
     </head>
 
@@ -11,6 +12,7 @@
         <div id="content">
 
             <div id="pageHeader">
+                <div id="loggedInDetails"></div>
                 <h1>Quiz</h1>
             </div>
 
@@ -33,6 +35,7 @@
                         <label for="Studentemail" class="label">Email:</label>
                         <input type="text" name="colour" id="Studentemail">
                     </div>
+
 
                     <div>
                         <input type="submit" value="Save"  id ="saveButton">
