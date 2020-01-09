@@ -113,22 +113,32 @@ public class Student {
     @Path("update")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateThing(@FormDataParam("id") Integer id,
+    public String updateStudent(
                              @FormDataParam("name") String name,
                              @FormDataParam("age") Integer age,
                              @FormDataParam("email") String email) {
 
+
        try {
-           if (id == null || name == null || age == null || email == null) {
+           if (name == null || age == null || email == null) {
                throw new Exception("One or more form data parameters are missing in the HTTP request.");
            }
-           System.out.println("Student/update id=" + id);
+           //System.out.println("Student/update id=" + id);
+           PreparedStatement ps1 = Main.db.prepareStatement("SELECT id FROM Student WHERE name = ?");
+           ps1.setString(1,name);
 
-           PreparedStatement ps = Main.db.prepareStatement("UPDATE Student SET name = ?, age = ? , email = ?   WHERE id = ?");
+
+           ResultSet results = ps1.executeQuery();
+
+           JSONObject item = new JSONObject();
+           item.put("id", results.getInt(1));
+
+
+
+           PreparedStatement ps = Main.db.prepareStatement("UPDATE Student SET name = ?, age = ? , email = ? ,   WHERE id = ?");
            ps.setString(1, name);
            ps.setInt(2, age);
            ps.setString(3,email);
-           ps.setInt(4, id);
            ps.execute();
            return "{\"status\": \"OK\"}";
 
