@@ -19,7 +19,7 @@ public class Student {
     @GET
     @Path("get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getFruit(@PathParam("id") Integer id) {
+    public String getStudent(@PathParam("id") Integer id) {
         System.out.println("Student/get/" + id);
         JSONObject item = new JSONObject();
         try {
@@ -47,7 +47,7 @@ public class Student {
     @Path("new")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String insertThing(@FormDataParam("id") Integer id,
+    public String insertStudent(@FormDataParam("id") Integer id,
                              @FormDataParam("name") String name,
                              @FormDataParam("age") Integer age,
                              @FormDataParam("email") String email,
@@ -83,7 +83,7 @@ public class Student {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public String listThings () {
+    public String listStudent () {
        System.out.println("Student/list");
        JSONArray list = new JSONArray();
 
@@ -113,32 +113,22 @@ public class Student {
     @Path("update")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateStudent(
+    public String updateStudent(@FormDataParam("id") Integer id,
                              @FormDataParam("name") String name,
                              @FormDataParam("age") Integer age,
                              @FormDataParam("email") String email) {
 
-
        try {
-           if (name == null || age == null || email == null) {
+           if (id == null || name == null || age == null || email == null) {
                throw new Exception("One or more form data parameters are missing in the HTTP request.");
            }
-           //System.out.println("Student/update id=" + id);
-           PreparedStatement ps1 = Main.db.prepareStatement("SELECT id FROM Student WHERE name = ?");
-           ps1.setString(1,name);
+           System.out.println("Student/update id=" + id);
 
-
-           ResultSet results = ps1.executeQuery();
-
-           JSONObject item = new JSONObject();
-           item.put("id", results.getInt(1));
-
-
-
-           PreparedStatement ps = Main.db.prepareStatement("UPDATE Student SET name = ?, age = ? , email = ? ,   WHERE id = ?");
+           PreparedStatement ps = Main.db.prepareStatement("UPDATE Student SET name = ?, age = ? , email = ?   WHERE id = ?");
            ps.setString(1, name);
            ps.setInt(2, age);
            ps.setString(3,email);
+           ps.setInt(4, id);
            ps.execute();
            return "{\"status\": \"OK\"}";
 
@@ -154,7 +144,7 @@ public class Student {
     @Path("delete")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteThing(@FormDataParam("id") Integer id) {
+    public String deleteStudent(@FormDataParam("id") Integer id) {
 
        try {
            if (id == null) {
