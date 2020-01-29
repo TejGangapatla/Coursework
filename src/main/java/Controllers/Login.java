@@ -20,12 +20,12 @@ public class Login {
     @GET
     @Path("get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getFruit(@PathParam("id") Integer id) {
+    public String getLogin(@PathParam("id") Integer id) {
         System.out.println("Login/get/" + id);
         JSONObject item = new JSONObject();
         try {
             if (id == null) {
-                throw new Exception("Student's 'id' is missing in the HTTP request's URL.");
+                throw new Exception("User's 'id' is missing in the HTTP request's URL.");
             }
             PreparedStatement ps = Main.db.prepareStatement("SELECT id, password FROM Login WHERE id = ?");
             ps.setInt(1, id);
@@ -37,7 +37,7 @@ public class Login {
             return item.toString();
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());
-            return "{\"error\": \"Unable to get Student, please see server console for more info.\"}";
+            return "{\"error\": \"Unable to get Login, please see server console for more info.\"}";
         }
     }
 
@@ -46,7 +46,7 @@ public class Login {
     @Path("new")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String insertThing(@FormDataParam("id") Integer id,
+    public String insertLogin(@FormDataParam("id") Integer id,
                               @FormDataParam("password") String password){
 
 
@@ -66,7 +66,7 @@ public class Login {
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());
-            return "{\"error\": \"Unable to create new item, please see server console for more info.\"}";
+            return "{\"error\": \"Unable to create new Login, please see server console for more info.\"}";
         }
     }
 
@@ -93,7 +93,7 @@ public class Login {
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());
-            return "{\"error\": \"Unable to list items, please see server console for more info.\"}";
+            return "{\"error\": \"Unable to list Login, please see server console for more info.\"}";
         }
     }
 
@@ -101,7 +101,7 @@ public class Login {
     @Path("update")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateThing(@FormDataParam("id") Integer id,
+    public String updateLogin(@FormDataParam("id") Integer id,
                               @FormDataParam("password") String password) {
 
         try {
@@ -120,7 +120,7 @@ public class Login {
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());
-            return "{\"error\": \"Unable to update Student, please see server console for more info.\"}";
+            return "{\"error\": \"Unable to update the Login, please see server console for more info.\"}";
         }
     }
 
@@ -128,7 +128,7 @@ public class Login {
     @Path("delete")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteThing(@FormDataParam("id") Integer id) {
+    public String deleteLogin(@FormDataParam("id") Integer id) {
 
         try {
             if (id == null) {
@@ -145,7 +145,7 @@ public class Login {
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());
-            return "{\"error\": \"Unable to delete item, please see server console for more info.\"}";
+            return "{\"error\": \"Unable to delete Login, please see server console for more info.\"}";
         }
     }
 

@@ -47,6 +47,10 @@ th.last {
 
 }
 
+.floatLeft {
+    float: left;
+}
+
 li {
     display: inline;
 }

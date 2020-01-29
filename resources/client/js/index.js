@@ -31,6 +31,7 @@ function pageLoad() {
         StudentHTML += '</table>';
 
         document.getElementById("listDiv").innerHTML = StudentHTML;
+
         let editButtons = document.getElementsByClassName("editButton");
         for (let button of editButtons) {
             button.addEventListener("click", editUser);
@@ -100,16 +101,23 @@ function saveEditUser(event) {
     const form = document.getElementById("StudentForm");
     const formData = new FormData(form);
 
+    let apiPath = '';
+    if (id === '') {
+        apiPath = '/Student/new';
+    } else {
+        apiPath = '/Student/update';
+    }
 
 
 
 
-    fetch('/Student/update', {method: 'post', body: formData}
+
+    fetch(apiPath, {method: 'post', body: formData}
     ).then(response => response.json()
-    ).then(Student => {
+    ).then(responseData => {
 
-        if (Student.hasOwnProperty('error')) {
-            alert(Student.error);
+        if (responseData.hasOwnProperty('error')) {
+            alert(responseData.error);
         } else {
             document.getElementById("listDiv").style.display = 'block';
             document.getElementById("editDiv").style.display = 'none';
